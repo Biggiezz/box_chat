@@ -1,0 +1,38 @@
+name: boxchat
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0' # Bạn có thể dùng sdk: ^3.8.1 như cũ, nhưng đây là cách phổ biến hơn
+
+dependencies:
+  image_picker: ^1.0.4
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0 # Hoặc ^2.0.0, ^4.0.0, ^5.0.0 tùy phiên bản bạn muốn
+
+flutter:
+  uses-material-design: true
+
+  # Khai báo assets (bao gồm cả thư mục images)
+  assets:
+    - assets/images/  # Khai báo thư mục images để sử dụng các ảnh trong đó
+    # - assets/fonts/ # KHÔNG cần khai báo thư mục fonts ở đây nữa nếu bạn khai báo từng file font cụ thể bên dưới
+
+  # Khai báo fonts
+  fonts:
+    - family: Urbanist Script  # Tên family bạn sẽ dùng trong code Dart
+      fonts:
+        - asset: assets/fonts/Urbanist Script.ttf # Đường dẫn chính xác đến file font
+        # Nếu font của bạn có các weight khác nhau (ví dụ: bold, italic), bạn sẽ khai báo chúng ở đây:
+        # - asset: assets/fonts/UrbanistScript-Bold.ttf
+        #   weight: 700
+        # - asset: assets/fonts/UrbanistScript-Italic.ttf
+        #   style: italic
