@@ -91,7 +91,7 @@ class _AccountSetupState extends State<AccountSetup> {
                   color: const Color(0xFFFAFAFA),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: TextField(
                     style: const TextStyle(
                       fontSize: 14,

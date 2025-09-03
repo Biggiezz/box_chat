@@ -42,13 +42,16 @@ class _SignupState extends State<Signup> {
       body: Column(
         children: [
           const Padding(
-            padding: EdgeInsets.fromLTRB(24, 59, 24, 59),
-            child: Text(
-              "Create your Account",
-              style: TextStyle(
-                fontSize: 48,
-                color: Color(0xFF212121),
-                fontWeight: FontWeight.w700,
+            padding: EdgeInsets.all(24),
+            child: SizedBox(
+              height: 160,
+              child: Text(
+                "Create your Account",
+                style: TextStyle(
+                  fontSize: 48,
+                  color: Color(0xFF212121),
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
           ),
@@ -129,11 +132,11 @@ class _SignupState extends State<Signup> {
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 59),
           RichText(
-            text: TextSpan(
-                style: DefaultTextStyle.of(context).style,
-                children: const <TextSpan>[
+            text: const TextSpan(
+
+                children:  <TextSpan>[
                   TextSpan(
                     text: "Already have an account? ",
                     style: TextStyle(

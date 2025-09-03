@@ -76,7 +76,6 @@ class _LoginPageState extends State<LoginPage> {
                         color: Color(0xFFFAFAFA),
                       ),
                     ),
-                    labelText: 'Email',
                     prefixIcon: const Icon(Icons.email,
                         color: Color(0xFF9E9E9E), size: 20),
                   ),
@@ -87,16 +86,19 @@ class _LoginPageState extends State<LoginPage> {
           child: TextField(
             decoration: InputDecoration(
               hintText: "Nhập mật khẩu của bạn",
+              hintStyle: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: Color(0xFFBDBDBD),
+              ),
               border: OutlineInputBorder(
                 //gapPadding: 100,
-
 
                 borderRadius: BorderRadius.circular(12),
                 borderSide: const BorderSide(
                   color: Color(0xFFFAFAFA),
                 ),
               ),
-              labelText: 'Password',
               prefixIcon:
                   const Icon(Icons.lock, color: Color(0xFF9E9E9E), size: 20),
               suffixIcon: IconButton(
@@ -121,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         _buildCheckBox(),
         _buildButtonSign(),
-        const SizedBox(height: 20),
+        const SizedBox(height: 24),
         const Text(
           "Forgot the password?",
           style: TextStyle(
@@ -130,7 +132,9 @@ class _LoginPageState extends State<LoginPage> {
             color: Color(0xFF00CDBD),
           ),
         ),
+        const SizedBox(height: 45),
         _buildOr(),
+        const SizedBox(height: 30),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -147,25 +151,24 @@ class _LoginPageState extends State<LoginPage> {
         ),
         const SizedBox(height: 45),
         RichText(
-          text: const TextSpan(
-              children:  <TextSpan>[
-                TextSpan(
-                  text: "Don't have an account? ",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xFF9E9E9E),
-                  ),
-                ),
-                TextSpan(
-                  text: "  Sign up ",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF00CDBD),
-                  ),
-                ),
-              ]),
+          text: const TextSpan(children: <TextSpan>[
+            TextSpan(
+              text: "Don't have an account? ",
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: Color(0xFF9E9E9E),
+              ),
+            ),
+            TextSpan(
+              text: "  Sign up ",
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF00CDBD),
+              ),
+            ),
+          ]),
         ),
       ]),
     );
@@ -190,18 +193,24 @@ class _LoginPageState extends State<LoginPage> {
           });
         },
       ),
-      const Text("Remember me"),
+      const Text("Remember me",
+      style: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        color: Color(0xFF212121),
+      ),),
+
     ]);
   }
 
   Widget _buildButtonSign() {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const AccountSetup(),
-          ));
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AccountSetup(),
+            ));
       },
       child: Container(
         height: 58,
@@ -226,23 +235,21 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildOr() {
-    return const Padding(
-      padding: EdgeInsets.all(34),
-      child: Row(children: [
-        Expanded(child: Divider(color: Color(0xFFEEEEEE))),
-        SizedBox(width: 16),
-        Text(
-          "or continue with",
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF616161),
-          ),
+    return const Row(
+        children: [
+      Expanded(child: Divider(color: Color(0xFFEEEEEE))),
+      SizedBox(width: 16),
+      Text(
+        "or continue with",
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: Color(0xFF616161),
         ),
-        SizedBox(width: 16),
-        Expanded(child: Divider(color: Color(0xFFEEEEEE))),
-      ]),
-    );
+      ),
+      SizedBox(width: 16),
+      Expanded(child: Divider(color: Color(0xFFEEEEEE))),
+    ]);
   }
 
   Widget _buildSocial({String? image}) {
