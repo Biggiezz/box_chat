@@ -34,9 +34,22 @@ class _LoginState extends State<Login> {
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 48,
-                      color: Color(0xff212121),
+                     fontFamily: 'Urbanist Script',
+                     shadows: <Shadow>[
+                       Shadow(
+                        offset: Offset(0, 4),
+                         blurRadius: 4,
+
+
+
+                       ),
+
+                     ]
+
+
+                      )
                     ),
-                  ),
+
                   const SizedBox(height: 40.25),
                   _buttonSignWith(
                       text: "Continue with Facebook",
@@ -107,26 +120,31 @@ class _LoginState extends State<Login> {
   }
 
   Widget _buildOr() {
-    return Row(
-      children: [
-        Expanded(
-          child: Container(color: const Color(0xFF00CDBD), height: 1),
-        ),
-        const SizedBox(width: 16),
-        const Text(
-          'or',
-          style: TextStyle(
-            fontSize: 18,
-            fontFamily: 'Urbanist Script',
-            fontWeight: FontWeight.w600,
-            color: Color(0xff616161),
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, right: 10),
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+              width: 155,
+                color: const Color(0xFF00CDBD), height: 1),
           ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: Container(color: const Color(0xFF00CDBD), height: 1),
-        ),
-      ],
+          const SizedBox(width: 16),
+          const Text(
+            'or',
+            style: TextStyle(
+              fontSize: 18,
+              fontFamily: 'Urbanist Script',
+              fontWeight: FontWeight.w600,
+              color: Color(0xff616161),
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Container(color: const Color(0xFF00CDBD), height: 1),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -140,6 +158,13 @@ Widget _buildLoginOption({
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(100),
       color: const Color(0xFF00CDBD),
+boxShadow: [BoxShadow(
+  color: const Color(0xff00CDBD).withValues(alpha: 0.25),
+  blurRadius: 24,
+  offset: const Offset(4, 8),),
+]
+
+
     ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,

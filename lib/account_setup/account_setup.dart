@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:boxchat/account_setup/create_new_pin.dart';
 import 'package:boxchat/assets/image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -91,7 +92,7 @@ class _AccountSetupState extends State<AccountSetup> {
                   color: const Color(0xFFFAFAFA),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.only(left: 20),
                   child: TextField(
                     style: const TextStyle(
                       fontSize: 14,
@@ -105,7 +106,11 @@ class _AccountSetupState extends State<AccountSetup> {
                           fontWeight: FontWeight.w400,
                           color: Color(0xFF9E9E9E),
                         ),
-                        suffixIcon: Image.asset(ImageAssets.emailSetup),
+                        suffixIcon: Image.asset(
+                          ImageAssets.emailSetup,
+                          scale: 1.3,
+                          color: const Color(0xFF212121),
+                        ),
                         border: InputBorder.none),
                   ),
                 ),
@@ -195,20 +200,32 @@ class _AccountSetupState extends State<AccountSetup> {
   }
 
   Widget _buildButtonContinue() {
-    return Container(
-      width: double.infinity,
-      height: 58,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(100),
-        color: const Color(0xFF11B1A5),
-      ),
-      child: const Center(
-        child: Text(
-          "Continue",
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFFFFFFFF),
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) => const CreateNewPin()));
+      },
+      child: Container(
+        width: double.infinity,
+        height: 58,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100),
+            color: const Color(0xFF00CDBD),
+            boxShadow: [
+              BoxShadow(
+                offset: const Offset(4, 8),
+                blurRadius: 24,
+                color: const Color(0xFF00CDBD).withValues(alpha: 0.25),
+              )
+            ]),
+        child: const Center(
+          child: Text(
+            "Continue",
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFFFFFFFF),
+            ),
           ),
         ),
       ),

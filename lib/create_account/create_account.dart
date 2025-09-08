@@ -16,6 +16,10 @@ class _SignupState extends State<Signup> {
   final _passwordController = TextEditingController();
   bool _isObscured = true;
   bool isChecked = false;
+  final _formKey = GlobalKey<FormState>();
+  final _EmailReg = RegExp(r'^[A-Za-z0-9]{2,}@([\w-]+\.)+[A-Za-z]{3,}$');
+  final _PasswordRegex = RegExp(
+      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+={}\[\]|\\:;"<>,.?/~`]).{8,}$');
 
   @override
   void initState() {
@@ -55,64 +59,81 @@ class _SignupState extends State<Signup> {
               ),
             ),
           ),
+          // === (SỬA) ===
           Padding(
             padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
-            child: TextField(
-              focusNode: _emailFocus,
-              controller: _emailController,
-              decoration: InputDecoration(
-                labelText: 'Email',
-                hintText: "Nhập email của bạn",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                prefixIcon: const Icon(
-                  Icons.email,
-                  color: Color(0xFF9E9E9E),
-                  size: 20,
-                ),
-              ),
-              keyboardType: TextInputType.emailAddress,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
-            child: TextField(
-              focusNode: _passwordFocus,
-              controller: _passwordController,
-              obscureText: _isObscured,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                hintText: "Nhập mật khẩu của bạn",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                prefixIcon: const Icon(
-                  Icons.lock,
-                  size: 20,
-                  color: Color(0xFF9E9E9E),
-                ),
-                suffixIcon: IconButton(
-                  padding: const EdgeInsetsDirectional.only(end: 12),
-                  icon: _isObscured
-                      ? const Icon(
-                          Icons.visibility,
-                          color: Color(0xFF9E9E9E),
-                        )
-                      : const Icon(
-                          Icons.visibility_off,
-                          color: Color(0xFF9E9E9E),
+            child: Form(
+              key: _formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Column(
+                children: [
+                  // Email container
+                  Container(
+                    decoration: BoxDecoration(
+                    //  color: const Color(0xFFFAFAFA),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: TextFormField(
+                      controller: _emailController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty || !_EmailReg.hasMatch(value)) {
+                          return "Vui lòng nhập đúng email";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        hintText: "Nhập email của bạn",
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Color(0xFF00CDBD)),
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                  onPressed: () {
-                    setState(() {
-                      _isObscured = !_isObscured;
-                    });
-                  },
-                ),
+                        border: InputBorder.none,
+                        prefixIcon: const Icon(Icons.email,
+                            color: Color(0xFF9E9E9E), size: 20),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // Password container (GIỜ NẰM TRONG CÙNG 1 FORM)
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: const Color(0xFFFAFAFA),
+                    ),
+                    child: TextFormField(
+                      controller: _passwordController,
+                      obscureText: _isObscured,
+                      validator: (value) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            value.length < 8 ||
+                            !_PasswordRegex.hasMatch(value)) {
+                          return "Vui lòng nhập đúng mật khẩu";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        hintText: "Password",
+                        border: InputBorder.none,
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Color(0xFF00CDBD)),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        prefixIcon: const Icon(Icons.lock, color: Colors.grey, size: 20),
+                        suffixIcon: IconButton(
+                          icon: Icon(_isObscured ? Icons.visibility : Icons.visibility_off,size: 20,),
+                          onPressed: () => setState(() => _isObscured = !_isObscured),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              keyboardType: TextInputType.visiblePassword,
             ),
           ),
+
           _checkBox(),
           const SizedBox(height: 20),
           _buildButtonSignup(),
@@ -134,27 +155,25 @@ class _SignupState extends State<Signup> {
           ),
           const SizedBox(height: 59),
           RichText(
-            text: const TextSpan(
-
-                children:  <TextSpan>[
-                  TextSpan(
-                    text: "Already have an account? ",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xFF9E9E9E),
-                      fontFamily: "Urbanist Script",
-                    ),
-                  ),
-                  TextSpan(
-                      text: '  Sign in',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF00CDBD),
-                        fontFamily: "Urbanist Script",
-                      )),
-                ]),
+            text: const TextSpan(children: <TextSpan>[
+              TextSpan(
+                text: "Already have an account? ",
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFF9E9E9E),
+                  fontFamily: "Urbanist Script",
+                ),
+              ),
+              TextSpan(
+                  text: '  Sign in',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF00CDBD),
+                    fontFamily: "Urbanist Script",
+                  )),
+            ]),
           ),
         ],
       ),
@@ -162,24 +181,36 @@ class _SignupState extends State<Signup> {
   }
 
   Widget _buildButtonSignup() {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LoginPage(),
-          ),
-        );
-      },
-      child: Container(
-        width: 380,
-        height: 58,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(100),
-          color: const Color(0xFF11B1A5),
+    return Container(
+      decoration:
+          BoxDecoration(borderRadius: BorderRadius.circular(100), boxShadow: [
+        BoxShadow(
+          offset: const Offset(4, 8),
+          blurRadius: 24,
+          color: const Color(0xFF00CDBD).withValues(alpha: 0.25),
         ),
-        child: const Center(
-          child: Text(
+      ]),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF00CDBD),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(100),
+          ),
+          padding: EdgeInsets.zero,
+        ),
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const LoginPage()),
+            );
+          }
+        },
+        child: Container(
+          width: 380,
+          height: 58,
+          alignment: Alignment.center,
+          child: const Text(
             "Sign up",
             style: TextStyle(
               fontSize: 16,
@@ -196,7 +227,6 @@ class _SignupState extends State<Signup> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Transform.scale(scale: 1.5),
         Checkbox(
           side: const BorderSide(
             width: 2.5,
